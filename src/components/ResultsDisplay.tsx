@@ -31,7 +31,12 @@ export default function ResultDisplay({ type, data }: Base64Data) {
                 </tr>
             </thead>
             <tbody>
-                <Output label="URI" id="uri" value={uri} />
+                <Output id="uri" value={uri}>
+                    URI &nbsp;
+                    <small>
+                    (<a href={uri} target="_blank" rel="noopener noreferrer">Open As URL</a> *)
+                    </small>
+                </Output>
                 <Output label="<a href=>" id="link" value={a} />
                 <Output label="<script>" id="js" value={js} />
 
@@ -41,6 +46,11 @@ export default function ResultDisplay({ type, data }: Base64Data) {
                 <Output label="<link rel=stylesheet>" id="css_link" value={css_link} />
             </tbody>
         </table>
+
+        <hr />
+        <small>
+            *) Not all Browsers Support opening all links. If it does not work try copy pasting the URL manually.
+        </small>
     </form>
 }
 
@@ -55,10 +65,10 @@ function makeTag(name: string, attr: string, data: Base64Data, attrs?: Record<st
 }
 
 function makeDataURI({ data, type }: Base64Data) {
-    return `data:${type},base64,${data}`
+    return `data:${type};base64,${data}`
 }
 
-function Output({ value, label, id }: { value: string, label: string, id: string }) {
+function Output({ value, label, id, children }: { value: string, label?: string, id: string, children?: React.ReactNode}) {
     const [isCopied, setCopied] = React.useState<boolean>(false)
     const [timer, setTimer] = React.useState<NodeJS.Timeout | null>(null)
 
@@ -71,7 +81,7 @@ function Output({ value, label, id }: { value: string, label: string, id: string
 
     return <tr className={styles.Output}>
         <td>
-            <label htmlFor={id}>{label}</label>
+            <label htmlFor={id}>{label ?? children}</label>
         </td>
         <td>
             <input type="text" readOnly={true} value={value} id={id} />
