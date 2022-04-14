@@ -1,9 +1,13 @@
 import * as React from "react"
 import type { AppProps } from "next/app"
 
+import "../styles/global.css"
+
 export default function App({ Component, pageProps }: AppProps) {
   return (<>
-    <Component {...pageProps} />
+    <main>
+      <Component {...pageProps} />
+    </main>
     <footer>
         <ClientSideScript src="https://inform.everyone.wtf/legal.min.js" data-site-id={process.env.NEXT_ENV_PUBLIC_TRACKING_ID} />
     </footer>
