@@ -5,7 +5,7 @@ interface DropAreaProps {
     
     className?: string, activeClassName?: string, passiveClassName?: string
 
-    children?: (active: boolean) => React.ReactChild
+    children?: (active: boolean) => React.ReactNode
 }
 
 export default class DropArea extends React.Component<DropAreaProps> {
